@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>check zodiak by itang</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 20px;
+    }
+    h1 {
+      text-align: center;
+    }
+    .form-container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      margin: 10px auto;
+      width: fit-content;
+    }
+    .form-label {
+      margin-bottom: 5px;
+    }
+    input[type="text"],
+    input[type="date"] {
+      padding: 5px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      margin-bottom: 10px;
+    }
+  </style>
+</head>
+<body>
+  <h1>HAYO APA ZODIAC MU?</h1>
+  <div class="form-container">
+    <label class="form-label" for="name">Masukkan nama anda :</label>
+    <input type="text" id="name" name="name">
+    <br>
+    <label class="form-label" for="birthdate">Kapan anda lahir :</label>
+    <input type="date" id="birthdate" name="birthdate" onchange="checkZodiac()">
+  </div>
+  <p id="name-result"></p>
+  <p id="zodiac-result"></p>
+  <p id="sifat-result"></p>
+
+  <script>
+    function checkZodiac() {
+      var name = document.getElementById("name").value;
+      var birthdate = document.getElementById("birthdate").value;
+
+      if (name && birthdate) {
+        var birthDateParts = birthdate.split("-");
+        var birthMonth = parseInt(birthDateParts[1]);
+        var birthDay = parseInt(birthDateParts[2]);
+
+        var signs = [
+          ["Capricorn", 12, 22, " Capricorn dikenal sebagai individu yang tekun dan ulet dalam mencapai tujuannya. Mereka memiliki etos kerja yang tinggi dan selalu berusaha memberikan yang terbaik. Capricorn juga dikenal sebagai orang yang realistis dan praktis, serta memiliki kemampuan manajemen yang baik"], 
+          ["Aquarius", 1, 20, " Aquarius dikenal sebagai individu yang kreatif dan inovatif. Mereka selalu memiliki ide-ide baru dan berani untuk mencoba hal-barang baru. Aquarius juga dikenal sebagai orang yang berpikiran bebas dan independen, serta memiliki jiwa sosial yang tinggi"],
+          ["Pisces", 2, 18, " Pisces dikenal sebagai individu yang imajinatif dan kreatif. Mereka memiliki dunia fantasi mereka sendiri dan sering kali tenggelam dalam imajinasi mereka. Pisces juga dikenal sebagai orang yang sensitif dan penyayang, serta memiliki intuisi yang kuat"],
+          ["Aries", 3, 20, " Aries dikenal sebagai individu yang pemberani dan penuh semangat. Mereka selalu siap untuk mengambil risiko dan tidak takut untuk menghadapi tantangan. Aries juga dikenal sebagai pemimpin alami dan memiliki tekad yang kuat"],
+          ["Taurus", 4, 20, " Taurus dikenal sebagai individu yang sabar dan dapat diandalkan. Mereka selalu ada untuk orang-orang yang mereka sayangi dan selalu berusaha untuk memberikan dukungan. Taurus juga dikenal sebagai orang yang realistis dan praktis, serta memiliki etos kerja yang tinggi"],
+          ["Gemini", 5, 21, " Gemini dikenal sebagai individu yang cerdas dan mudah bergaul. Mereka selalu senang berbicara dengan orang lain dan memiliki banyak pengetahuan tentang berbagai hal. Gemini juga dikenal sebagai orang yang penasaran dan suka belajar, serta memiliki kemampuan untuk beradaptasi dengan situasi yang berbeda"],
+          ["Cancer", 6, 21, " Cancer dikenal sebagai individu yang penyayang dan intuitif. Mereka selalu peduli dengan orang lain dan memiliki kemampuan untuk memahami perasaan orang lain. Cancer juga dikenal sebagai orang yang protektif dan setia, serta memiliki imajinasi yang kuat"],
+          ["Leo", 7, 22, "  Leo dikenal sebagai individu yang percaya diri dan dermawan. Mereka selalu ingin membantu orang lain dan selalu berusaha untuk membuat orang lain bahagia. Leo juga dikenal sebagai pemimpin alami dan memiliki energi yang positif, serta selalu optimis dalam menghadapi kehidupan"],
+          ["Virgo", 8, 23, " Virgo dikenal sebagai individu yang teliti dan analitis. Mereka selalu memperhatikan detail dan selalu berusaha untuk melakukan sesuatu dengan sempurna. Virgo juga dikenal sebagai orang yang praktis dan logis, serta memiliki rasa tanggung jawab yang tinggi"],
+          ["Libra", 9, 23, "Libra dikenal sebagai individu yang diplomatis dan adil. Mereka selalu berusaha untuk melihat dari berbagai sudut pandang dan selalu mencari solusi yang adil untuk semua pihak. Libra juga dikenal sebagai orang yang cinta damai dan kooperatif, serta memiliki kecerdasan dan jiwa artistik"],
+          ["Scorpio", 10, 22, " Scorpio dikenal sebagai individu yang misterius dan penuh gairah. Mereka selalu memiliki aura yang menarik dan selalu ingin tahu tentang hal-hal yang baru.Scorpio juga dikenal sebagai orang yang bersikap jujur dan terbuka,serta bisa di percaya"],
+          ["Sagittarius", 11, 21, " sagittarius di kenal sebagai individu yang optimis dan penuh semangat, mereka selalu melihat sisi positif dari segala hal.Sagittarius juga dikenal orang yang jujur dan apa adanya,serta terbuka dan mudah bergaul"]
+        ];
+
+        for (var i = 0; i < signs.length; i++) {
+          
+          if ((birthMonth === signs[i][1] && birthDay >= signs[i][2]) ||
+              (birthMonth === signs[i][1] + 1 && birthDay <= signs[i][2])) {
+            document.getElementById("name-result").innerHTML = "Nama kamu: " + name;
+            document.getElementById("zodiac-result").innerHTML = "Zodiak kamu: " + signs[i][0];
+            document.getElementById("sifat-result").innerHTML = "Sifat dari zodiak kamu: " + signs[i][3];
+            return;
+          }
+        }
+
+        document.getElementById("name-result").innerHTML = "";
+        document.getElementById("zodiac-result").innerHTML = "Maaf,tanggal lahir tidak valid!";
+      } else {
+        document.getElementById("name-result").innerHTML = "";
+        document.getElementById("zodiac-result").innerHTML = "Tolong masukkan nama dan tanggal lahir anda";
+      }
+    }
+  </script>
+</body>
+</html>
